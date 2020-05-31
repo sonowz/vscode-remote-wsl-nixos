@@ -16,7 +16,12 @@ Now that WSL 2 has been released from Windows 2004 update, NixOS can be run in W
 }
 ```
 5. Run `cp ./server-env-setup ~/.vscode-server/server-env-setup`. See [here](https://code.visualstudio.com/docs/remote/wsl#_advanced-environment-setup-script) for description.
-6. Now VSCode can connect to your NixOS! Note that every time your vscode updates (this includes the first run), connection will fail. Just click 'retry' and reconnect.
+6. Now VSCode can connect to your NixOS!
+
+
+## Known issues
+- Every time your vscode updates (including the very first run), connection will fail. Just click 'retry' and reconnect. See `server-env-setup` file for explanations.
+- If required nodejs version for running VSCode changes, `fix-vscode-remote.nix` should be updated. Current required nodejs version is 12.
 
 
 ## Remote-SSH case
