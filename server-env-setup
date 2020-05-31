@@ -1,0 +1,6 @@
+# This shell script is run before checking for vscode version updates.
+# If a newer version is downloaded, 'fix-vscode-remote' won't patch that version,
+# resulting in error. Therefore retry is required to patch it.
+
+fix-vscode-remote $(echo $USER)
+
