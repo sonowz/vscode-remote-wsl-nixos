@@ -32,18 +32,12 @@ Now that WSL 2 has been released from Windows 2004 update, NixOS can be run in W
 
 ## Issue with [Trundle/NixOS-WSL](https://github.com/Trundle/NixOS-WSL) distro
 
-The problem: if you run `wsl.exe` with additional arguments (which is `sh -c "echo hello"` in step 3), the root shell ignores additional arguments. I wrote a workaround (yet might have some side effects) for this:
-
-substitute this line from [syschdemd.sh](https://github.com/Trundle/NixOS-WSL/blob/master/syschdemd.sh) from:
+The problem: if you run `wsl.exe` with additional arguments (which is `sh -c "echo hello"` in step 3), the root shell ignores additional arguments. In [syschdemd.sh](https://github.com/Trundle/NixOS-WSL/blob/master/syschdemd.sh), you should add `"$@"` at the end of this line:
 ```sh
 exec $sw/nsenter -t $(< /run/systemd.pid) -p -m --wd="$PWD" -- @wrapperDir@/su -s $userShell @defaultUser@
 ```
-to:
+like this:
 ```sh
-if [ $1 = "-c" ]; then
-  exec $sw/nsenter -t $(< /run/systemd.pid) -p -m --wd="$PWD" -- @wrapperDir@/su -s $userShell @defaultUser@ -c "${@:2}"
-else
-  exec $sw/nsenter -t $(< /run/systemd.pid) -p -m --wd="$PWD" -- @wrapperDir@/su -s $userShell @defaultUser@
-fi
+exec $sw/nsenter -t $(< /run/systemd.pid) -p -m --wd="$PWD" -- @wrapperDir@/su -s $userShell @defaultUser@ "$@"
 ```
 Don't forget to rebuild your OS!
