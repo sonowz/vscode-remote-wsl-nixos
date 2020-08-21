@@ -1,6 +1,21 @@
 # This shell script is run before checking for vscode version updates.
-# If a newer version is downloaded, 'fix-vscode-remote' won't patch that version,
+# If a newer version is downloaded, this script won't patch that version,
 # resulting in error. Therefore retry is required to patch it.
 
-fix-vscode-remote $(echo $USER)
+echo "== '~/.vscode-server/server-env-setup' SCRIPT START =="
 
+# Get directory where this shell script is located
+VSCODE_SERVER_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+echo "Got vscode directory : $VSCODE_SERVER_DIR"
+echo "If the directory is incorrect, you can hardcode it on the script."
+
+echo "Patching nodejs binaries..."
+nix-shell -p patchelf binutils --run "
+    for versiondir in $VSCODE_SERVER_DIR/bin/*/; do
+        echo \"Patching \"\"\$versiondir\"\"node\"
+        # Currently only "libstdc++.so.6" needs to be patched
+        patchelf --set-interpreter \"\$(cat \$NIX_CC/nix-support/dynamic-linker)\" --set-rpath \"\$(nix eval --raw nixpkgs.stdenv.cc.cc.lib)/lib/\" \"\$versiondir\"\"node\"
+    done
+"
+
+echo "== '~/.vscode-server/server-env-setup' SCRIPT END =="
