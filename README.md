@@ -6,7 +6,6 @@ Now that WSL 2 has been released from Windows 2004 update, NixOS can be run in W
 
 1. Install NixOS as a WSL 2 distro. Currently there's a working repository [here](https://github.com/Trundle/NixOS-WSL).
 2. Install Visual Studio Code and its Remote-WSL extension.
-3. Make sure that `C:\WINDOWS\System32\wsl.exe -d %YOUR_NIXOS_DISTRO% sh -c "echo hello"` prints `hello`. If you used repository from step 1, it won't print. Follow instructions at below section to fix the issue.
 4. Run `cp ./server-env-setup ~/.vscode-server/server-env-setup`. See [here](https://code.visualstudio.com/docs/remote/wsl#_advanced-environment-setup-script) for description.
 5. Now VSCode can connect to your NixOS!
 
@@ -23,12 +22,23 @@ Now that WSL 2 has been released from Windows 2004 update, NixOS can be run in W
 
 ## Issue with [Trundle/NixOS-WSL](https://github.com/Trundle/NixOS-WSL) distro
 
-The problem: if you run `wsl.exe` with additional arguments (which is `sh -c "echo hello"` in step 3), the root shell ignores additional arguments. In [syschdemd.sh](https://github.com/Trundle/NixOS-WSL/blob/master/syschdemd.sh), you should add `"$@"` at the end of this line:
+You will likely run into this error:
+```bash
+Launching C:\WINDOWS\System32\wsl.exe -d NixOS sh -c '"$VSCODE_WSL_EXT_LOCATION/scripts/wslServer.sh" 2b9aebd5354a3629c3aba0a5f5df49f43d6689f8 stable .vscode-server 0  '}
+sh: /scripts/wslServer.sh: No such file or directory
+```
+
+#### The problem
+`VSCODE_WSL_EXT_LOCATION` environment variable is expected to be set inside NixOS `sh`, whereas [syschdemd.sh](https://github.com/Trundle/NixOS-WSL/blob/main/syschdemd.sh) abstraction layer isolates the environment variable.
+
+#### Solution
+Change this line in [syschdemd.sh](https://github.com/Trundle/NixOS-WSL/blob/main/syschdemd.sh)
 ```sh
-exec $sw/nsenter -t $(< /run/systemd.pid) -p -m --wd="$PWD" -- @wrapperDir@/su -s $userShell @defaultUser@
+exec $sw/nsenter -t $(< /run/systemd.pid) -p -m -- $sw/machinectl -q --uid=@defaultUser@ shell .host /bin/sh -c "cd \"$PWD\"; exec $cmd"
 ```
 like this:
 ```sh
-exec $sw/nsenter -t $(< /run/systemd.pid) -p -m --wd="$PWD" -- @wrapperDir@/su -s $userShell @defaultUser@ "$@"
+exportCmd="export VSCODE_WSL_EXT_LOCATION=\"$VSCODE_WSL_EXT_LOCATION\""
+exec $sw/nsenter -t $(< /run/systemd.pid) -p -m -- $sw/machinectl -q --uid=@defaultUser@ shell .host /bin/sh -c "cd \"$PWD\"; $exportCmd; exec $cmd"
 ```
 Don't forget to rebuild your OS!
