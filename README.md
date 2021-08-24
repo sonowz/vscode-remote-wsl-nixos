@@ -14,12 +14,6 @@ Now that WSL 2 has been released from Windows 2004 update, NixOS can be run in W
 - Every time your vscode updates (including the very first run), connection will fail. Just click 'retry' and reconnect. See `server-env-setup` file for explanations.
 
 
-## Remote-SSH case
-
-"node not found" problem with Remote-SSH can also be fixed by step 4.
-
-
-
 ## Issue with [Trundle/NixOS-WSL](https://github.com/Trundle/NixOS-WSL) distro
 
 You will likely run into this error:
@@ -42,3 +36,9 @@ exportCmd="export VSCODE_WSL_EXT_LOCATION=\"$VSCODE_WSL_EXT_LOCATION\""
 exec $sw/nsenter -t $(< /run/systemd.pid) -p -m -- $sw/machinectl -q --uid=@defaultUser@ shell .host /bin/sh -c "cd \"$PWD\"; $exportCmd; exec $cmd"
 ```
 Don't forget to rebuild your OS!
+
+---
+
+## Alternative Solution
+
+Solution described in [this post](https://discourse.nixos.org/t/vscode-remote-wsl-extension-works-on-nixos-without-patching-thanks-to-nix-ld/14615) works by setting up `server-env-setup` file using [home-manager](https://github.com/nix-community/home-manager). (Also requires [nix-ld](https://github.com/Mic92/nix-ld))
