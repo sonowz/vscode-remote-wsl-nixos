@@ -43,7 +43,7 @@ Don't forget to rebuild your OS!
 
 Currently unstable version of nix, which introduces [Nix flakes](https://nixos.wiki/wiki/Flakes), also overhauls various nix commands.
 
-This changed the behavior of `nix-shell` command in the `server-env-setup` script.
+This changed the behavior of `nix eval` command in the `server-env-setup` script.
 Please use [flake/server-env-setup](flake/server-env-setup) file instead.
 
 ---
