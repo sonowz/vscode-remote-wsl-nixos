@@ -39,6 +39,15 @@ Don't forget to rebuild your OS!
 
 ---
 
+## For flake users (or `nixUnstable` users)
+
+Currently unstable version of nix, which introduces [Nix flakes](https://nixos.wiki/wiki/Flakes), also overhauls various nix commands.
+
+This changed the behavior of `nix-shell` command in the `server-env-setup` script.
+Please use [flake/server-env-setup](flake/server-env-setup) file instead.
+
+---
+
 ## Alternative Solution
 
 Solution described in [this post](https://discourse.nixos.org/t/vscode-remote-wsl-extension-works-on-nixos-without-patching-thanks-to-nix-ld/14615) works by setting up `server-env-setup` file using [home-manager](https://github.com/nix-community/home-manager). (Also requires [nix-ld](https://github.com/Mic92/nix-ld))
