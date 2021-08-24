@@ -46,6 +46,8 @@ Currently unstable version of nix, which introduces [Nix flakes](https://nixos.w
 This changed the behavior of `nix eval` command in the `server-env-setup` script.
 Please use [flake/server-env-setup](flake/server-env-setup) file instead.
 
+**WARNING**: You may want to modify `PKGS_EXPRESSION` variable in the script.
+
 ---
 
 ## Alternative Solution
