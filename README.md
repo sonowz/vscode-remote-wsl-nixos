@@ -4,7 +4,7 @@ Now that WSL 2 has been released from Windows 2004 update, NixOS can be run in W
 
 ## Steps
 
-1. Install NixOS as a WSL 2 distro. Currently there's a community supported repository [here](https://github.com/nix-community/NixOS-WSL).
+1. Install NixOS as a WSL 2 distro. Currently there's a community supported repository here ([NixOS-WSL](https://github.com/nix-community/NixOS-WSL)).
 2. Install Visual Studio Code and its [Remote-WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) extension.
 3. Make sure your NixOS system have `wget` installed. If you have no idea on this, run `nix profile install nixpkgs#wget` command to install `wget`.
 4. Run `cp ./server-env-setup ~/.vscode-server/server-env-setup`. See [here](https://code.visualstudio.com/docs/remote/wsl#_advanced-environment-setup-script) for description.
@@ -13,11 +13,12 @@ Now that WSL 2 has been released from Windows 2004 update, NixOS can be run in W
 ## Known issue
 
 Every time your vscode gets updated (including the very first run), the remote connection will fail. Just click 'retry' and reconnect.
+
 This is a **wontfix** issue. See `server-env-setup` script for explanations.
 
 ## For non-flake users
 
-Since [NixOS-WSL] includes flakes as default, non-flake is considered as legacy.
+Since [NixOS-WSL](https://github.com/nix-community/NixOS-WSL) includes flakes as default, non-flake is considered as legacy.
 Please use [non-flakes/server-env-setup](non-flakes/server-env-setup) file instead of `server-env-setup`.
 
 ---
