@@ -4,9 +4,14 @@
 
 echo "== '~/.vscode-server/server-env-setup' SCRIPT START =="
 
-# It is recommended that the branch/commit of nixpkgs is equal to that of NixOS configuration.
-# Modify "nixos-21.05" part from below line.
-PKGS_EXPRESSION=nixpkgs/nixos-21.05#pkgs
+# This shell script uses nixpkgs branch from OS version.
+# If you want to change this behavior, change environment variable below.
+#   e.g. NIXOS_VERSION=unstable
+NIXOS_VERSION=$(nixos-version | cut -d "." -f1,2)
+echo "NIXOS_VERSION detected as \"$NIXOS_VERSION\""
+
+NIXPKGS_BRANCH=nixos-$NIXOS_VERSION
+PKGS_EXPRESSION=nixpkgs/$NIXPKGS_BRANCH#pkgs
 
 # Get directory where this shell script is located
 VSCODE_SERVER_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
