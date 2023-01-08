@@ -13,17 +13,15 @@ Now that WSL 2 has been released from Windows 2004 update, NixOS can be run in W
 ## Known issue
 
 Every time your vscode gets updated (including the very first run), the remote connection will fail. Just click 'retry' and reconnect.
-This is a **wontfix** issue. See `server-env-setup` file for explanations.
+This is a **wontfix** issue. See `server-env-setup` script for explanations.
 
 ## For non-flake users
 
 Since [NixOS-WSL] includes flakes as default, non-flake is considered as legacy.
 Please use [non-flakes/server-env-setup](non-flakes/server-env-setup) file instead of `server-env-setup`.
 
-**WARNING**: You may want to modify `PKGS_EXPRESSION` variable in the script.
-
 ---
 
-## Alternative Solution
+### Alternative Solution
 
-Solution described in [this post](https://discourse.nixos.org/t/vscode-remote-wsl-extension-works-on-nixos-without-patching-thanks-to-nix-ld/14615) works by setting up `server-env-setup` file using [home-manager](https://github.com/nix-community/home-manager). (Also requires [nix-ld](https://github.com/Mic92/nix-ld))
+Solution described in [this post](https://discourse.nixos.org/t/vscode-remote-wsl-extension-works-on-nixos-without-patching-thanks-to-nix-ld/14615) works by setting up `server-env-setup` file using [home-manager](https://github.com/nix-community/home-manager). (This also requires [nix-ld](https://github.com/Mic92/nix-ld))
