@@ -14,6 +14,7 @@ nix-shell -p patchelf binutils --run "
     for versiondir in $VSCODE_SERVER_DIR/bin/*/; do
         echo \"Patching \"\"\$versiondir\"\"node\"
         # Currently only "libstdc++.so.6" needs to be patched
+        patchelf --set-interpreter \"\$(cat \$NIX_CC/nix-support/dynamic-linker)\" --set-rpath \"\$(nix eval --raw nixpkgs.stdenv.cc.cc.lib)/lib/\" \"\$versiondir\"\"node_modules/node-pty/build/Release/spawn-helper\"
         patchelf --set-interpreter \"\$(cat \$NIX_CC/nix-support/dynamic-linker)\" --set-rpath \"\$(nix eval --raw nixpkgs.stdenv.cc.cc.lib)/lib/\" \"\$versiondir\"\"node\"
     done
 "
