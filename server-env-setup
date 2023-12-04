@@ -4,6 +4,9 @@
 
 echo "== '~/.vscode-server/server-env-setup' SCRIPT START =="
 
+# Make sure that basic commands are available
+PATH=$PATH:/run/current-system/sw/bin/
+
 # This shell script uses nixpkgs branch from OS version.
 # If you want to change this behavior, change environment variable below.
 #   e.g. NIXOS_VERSION=unstable

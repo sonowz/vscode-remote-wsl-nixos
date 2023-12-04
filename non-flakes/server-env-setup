@@ -4,6 +4,9 @@
 
 echo "== '~/.vscode-server/server-env-setup' SCRIPT START =="
 
+# Make sure that basic commands are available
+PATH=$PATH:/run/current-system/sw/bin/
+
 # Get directory where this shell script is located
 VSCODE_SERVER_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 echo "Got vscode directory : $VSCODE_SERVER_DIR"
