@@ -10,7 +10,7 @@ PATH=$PATH:/run/current-system/sw/bin/
 # This shell script uses nixpkgs branch from OS version.
 # If you want to change this behavior, change environment variable below.
 #   e.g. NIXOS_VERSION=unstable
-NIXOS_VERSION=$(nixos-version | cut -d "." -f1,2)
+NIXOS_VERSION=$(nixos-version | cut -c 1-5)
 echo "NIXOS_VERSION detected as \"$NIXOS_VERSION\""
 
 NIXPKGS_BRANCH=nixos-$NIXOS_VERSION
