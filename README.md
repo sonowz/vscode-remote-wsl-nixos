@@ -25,4 +25,5 @@ Please use [non-flakes/server-env-setup](non-flakes/server-env-setup) file inste
 
 ### Alternative Solution
 
-Solution described in [this post](https://discourse.nixos.org/t/vscode-remote-wsl-extension-works-on-nixos-without-patching-thanks-to-nix-ld/14615) works by setting up `server-env-setup` file using [home-manager](https://github.com/nix-community/home-manager). (This also requires [nix-ld](https://github.com/Mic92/nix-ld))
+- [NixOS-WSL](https://github.com/nix-community/NixOS-WSL) documentation has a guide for [setting up VSCode remote](https://nix-community.github.io/NixOS-WSL/how-to/vscode.html). I haven't used it yet, but if it becomes actively maintained I would consider deprecating this repository.
+- Solution described in [this post](https://discourse.nixos.org/t/vscode-remote-wsl-extension-works-on-nixos-without-patching-thanks-to-nix-ld/14615) works by setting up `server-env-setup` file using [home-manager](https://github.com/nix-community/home-manager). (This also requires [nix-ld](https://github.com/Mic92/nix-ld))
